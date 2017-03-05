@@ -34,7 +34,7 @@ ProductDAO.prototype.save = function(product, callback){
 }
 
 ProductDAO.prototype.delete = function(id, callback){
-	Product.remove({ _id: id}, function(err, data){
+	Product.remove({ _id: id}, callback, function(err, data){
 		if(err) {
 				console.log('ERRO: ', err);
 			}

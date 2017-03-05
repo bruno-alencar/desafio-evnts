@@ -10,10 +10,13 @@ module.exports = function(app){
 					res.render('products/list', {list: results});
 				},
 				json: function(){
-					response.json(results);
+					res.json(results);
+					console.log(results);
 				}
 			})
 		});
+
+		mongoose.connection.close();
 	});
 
 	app.get('/produtos/:category', function(req,res){
@@ -30,10 +33,12 @@ module.exports = function(app){
 					res.render('products/list', {list: results});
 				},
 				json: function(){
-					response.json(results);
+					res.json(results);
 				}
 			})
 		});
+
+		mongoose.connection.close();
 	});
 
 	app.get('/cadastrar', function(req,res){
@@ -45,11 +50,13 @@ module.exports = function(app){
 		var product = req.body;
 
 		req.assert('name', 'O nome é obrigatório').notEmpty();
-		req.assert('price', 'Preço é obrigatório ou Formato inválido (ex: 22.22)').isEmpty().isFloat();
+		req.assert('price', 'Preço é obrigatório ou Formato inválido (ex: 22.22)').isFloat();
 		req.assert('category', 'A categoria é obrigatória').notEmpty();
 		req.assert('description', 'A descrição é obrigatória').notEmpty();
 
 		var errors = req.validationErrors();
+
+		console.log("produto "+product);
 
 		if(errors){
 			res.format({
@@ -69,6 +76,7 @@ module.exports = function(app){
 		productDAO.save(product, function(err, results){
 			res.redirect('/produtos');
 		});
+		mongoose.connection.close();
 	});
 
 	app.delete('/produtos', function(req, res){
@@ -77,11 +85,13 @@ module.exports = function(app){
 		var productDAO = new app.infra.ProductDAO(mongoose);
 
 		var id = req.body.id;
+		console.log(id);
 
 		productDAO.delete (id, function(err, results){
 			res.redirect('/produtos');
-		})
+		});
 
+		mongoose.connection.close();
 	});
 
 	app.put('/produtos', function(req, res){
@@ -92,6 +102,7 @@ module.exports = function(app){
 
 		productDAO.update(product._id, product, function(err, results){
 			res.redirect('/produtos');
-		})
+		});
+		mongoose.connection.close();
 	})
 }

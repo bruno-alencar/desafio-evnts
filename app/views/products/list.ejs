@@ -1,5 +1,74 @@
-<html>
-	<body>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+	<meta charset="utf-8">
+	<title>Produtos</title>
+	<meta http-equiv="X_UA_Compatible" content="IE=edge">
+	<meta name="viewport" content="width-device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-inverse" role="navigation">
+			<div class="container">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">Produtos de Light Lawliet</a>
+				</div>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="#">Sobre</a>
+						</li>
+						<li>
+							<a href="/cadastrar">Cadastrar</a>
+						</li>
+						<li>
+							<a href="/produtos">Produtos</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+		</nav>
+	</header>
+	<article class="container">
+		<div class="row">
+			<%for(var i=0; i < list.length;i++){%>
+			<div class="col-sm-4 col-lg-4 col-md-4">
+				<div class="thumbnail">
+					<img src="http://placehold.it/320x150" alt="">
+					<div class="caption">
+						<h4 class="pull-right">R$ <%=list[i].price%></h4>
+						<h4><a href="#"><%=list[i].name%></a>
+						</h4>
+						<p><a href="/produtos/<%=list[i].category%>" ><%=list[i].category%></a></p>
+						<p><%=list[i].description%></p>
+					</div>
+				</div>
+			</div>
+			<%}%>
+		</div>
 		<h1>Produtos</h1>
 		<table border="1px">
 			<tr>
@@ -10,19 +79,20 @@
 				<td>preco</td>
 
 			</tr>
-				<%for(var i=0; i < list.length;i++){%>
-					<tr>
-						<td><%=list[i]._id%></td>
-						<td><%=list[i].name%></td>
-						<td><%=list[i].category%></td>
-						<td><%=list[i].description%></td>
-						<td><%=list[i].price%></td>
-						<td><button onclick=""></button></td>
-					</tr>
-				<%}%>
+			<%for(var i=0; i < list.length;i++){%>
 			<tr>
-				
+				<td><%=list[i]._id%></td>
+				<td><%=list[i].name%></td>
+				<td><%=list[i].category%></td>
+				<td><%=list[i].description%></td>
+				<td><%=list[i].price%></td>
+				<td><button onclick=""></button></td>
+			</tr>
+			<%}%>
+			<tr>
+
 			</tr>
 		</table>
-	</body>
-</html>
+		<article>
+		</body>
+		</html>
