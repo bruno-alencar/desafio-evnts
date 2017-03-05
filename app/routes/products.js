@@ -16,6 +16,26 @@ module.exports = function(app){
 		});
 	});
 
+	app.get('/produtos/:category', function(req,res){
+
+		var category = req.params.category;
+		console.log("categoria: "+category);
+
+		var mongoose = app.infra.connectionFactory();
+		var productDAO = new app.infra.ProductDAO(mongoose);
+
+		productDAO.listByCategory(category, function(err, results){
+			res.format({
+				html: function(){
+					res.render('products/list', {list: results});
+				},
+				json: function(){
+					response.json(results);
+				}
+			})
+		});
+	});
+
 	app.get('/cadastrar', function(req,res){
 		res.render('products/form', {validationErrors:{}, product:{}});
 	})
@@ -25,7 +45,7 @@ module.exports = function(app){
 		var product = req.body;
 
 		req.assert('name', 'O nome é obrigatório').notEmpty();
-		req.assert('price', 'Formato inválido').isFloat();
+		req.assert('price', 'Preço é obrigatório ou Formato inválido (ex: 22.22)').isEmpty().isFloat();
 		req.assert('category', 'A categoria é obrigatória').notEmpty();
 		req.assert('description', 'A descrição é obrigatória').notEmpty();
 
@@ -37,7 +57,7 @@ module.exports = function(app){
 					res.status(400).render('products/form',{validationErrors: errors, product:product});		
 				},
 				json: function(){
-					res.status(400).json(erros);
+					res.status(400).json(errors);
 				}
 			});
 			return;
