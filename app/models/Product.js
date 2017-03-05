@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var productSchema = mongoose.Schema({
 	name: String,
 	description: String,
-	price: String,
+	price: {type: Number, min:0.0},
 	category: String
 });
 

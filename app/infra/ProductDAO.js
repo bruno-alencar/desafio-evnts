@@ -33,6 +33,24 @@ ProductDAO.prototype.save = function(product, callback){
 	});
 }
 
+ProductDAO.prototype.delete = function(id, callback){
+	Product.remove({ _id: id}, function(err, data){
+		if(err) {
+				console.log('ERRO: ', err);
+			}
+			console.log('Dados: ', data);
+	});
+}
+
+ProductDAO.prototype.update = function(id, product, callback){
+	Product.update({_id, id}, product, {multi:false}, function(err, data){
+		if(err){
+			console.log('Erro: ', err);
+		}
+		console.log('Listou:', data);
+	});
+}
+
 module.exports = function(){
 	return ProductDAO;
 }	

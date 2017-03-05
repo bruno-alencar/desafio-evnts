@@ -70,4 +70,28 @@ module.exports = function(app){
 			res.redirect('/produtos');
 		});
 	});
+
+	app.delete('/produtos', function(req, res){
+
+		var mongoose = app.infra.connectionFactory();
+		var productDAO = new app.infra.ProductDAO(mongoose);
+
+		var id = req.body.id;
+
+		productDAO.delete (id, function(err, results){
+			res.redirect('/produtos');
+		})
+
+	});
+
+	app.put('/produtos', function(req, res){
+		var mongoose = app.infra.connectionFactory();
+		var productDAO = new app.infra.ProductDAO(mongoose);
+
+		var product = req.body;
+
+		productDAO.update(product._id, product, function(err, results){
+			res.redirect('/produtos');
+		})
+	})
 }
