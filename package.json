@@ -1,0 +1,26 @@
+{
+  "name": "desafio-evnts",
+  "version": "1.0.0",
+  "description": "desafio da evnts",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bruno-alencar/desafio-evnts.git"
+  },
+  "author": "bruno alencar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bruno-alencar/desafio-evnts/issues"
+  },
+  "homepage": "https://github.com/bruno-alencar/desafio-evnts#readme",
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.0",
+    "express-load": "^1.1.15",
+    "mongoose": "^4.8.5"
+  }
+}
