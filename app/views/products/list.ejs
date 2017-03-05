@@ -5,13 +5,16 @@
 			<tr>
 				<td>id</td>
 				<td>nome</td>
+				<td>categoria</td>
 				<td>descricao</td>
 				<td>preco</td>
+
 			</tr>
 				<%for(var i=0; i < list.length;i++){%>
 					<tr>
 						<td><%=list[i]._id%></td>
 						<td><%=list[i].name%></td>
+						<td><%=list[i].category%></td>
 						<td><%=list[i].description%></td>
 						<td><%=list[i].price%></td>
 					</tr>
