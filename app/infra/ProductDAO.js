@@ -1,14 +1,16 @@
+var Product = require('../models/Product');
+
 function ProductDAO(mongoose){
-	_mongoose = mongoose;
-	var Schema = _mongoose.Schema;
+	// _mongoose = mongoose;
+	// var Schema = _mongoose.Schema;
 
-	var productSchema = _mongoose.Schema({
-		name: String,
-		description: String,
-		price: String
-	});
+	// var productSchema = _mongoose.Schema({
+	// 	name: String,
+	// 	description: String,
+	// 	price: String
+	// });
 
-	Product = _mongoose.model('Product', productSchema);
+	// Product = _mongoose.model('Product', productSchema);
 }
 
 ProductDAO.prototype.list = function(callback){
@@ -21,8 +23,9 @@ ProductDAO.prototype.list = function(callback){
 }
 
 ProductDAO.prototype.save = function(product, callback){
-	var productToSave = new Product(product);
-	productToSave.save(function(callback, err, data) {
+
+	_Product = new Product(product);
+	_Product.save(callback, function(err, data) {
 			if(err) {
 				console.log('ERRO: ', err);
 			}
