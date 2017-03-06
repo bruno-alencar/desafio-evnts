@@ -1,13 +1,16 @@
 module.exports = function(app){
 
-	app.get('/produtos', function(req, res){
+	app.get('/produtos', function(req, res, next){
 		var mongoose = app.infra.connectionFactory();
 		var productDAO = new app.infra.ProductDAO(mongoose);
 
 		productDAO.list(function(err, results){
+			if(err){
+				return next(err);
+			}
+
 			res.format({
 				html: function(){
-					console.log(results);
 					res.render('products/list', {list: results});
 				},
 				json: function(){

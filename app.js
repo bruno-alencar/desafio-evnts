@@ -1,5 +1,6 @@
 var app = require('./config/express')();
-var port = 3003
+
+var port = process.env.PORT || 3005;
 
 app.listen(port, function(){
 	console.log("listening localhost:" + port);

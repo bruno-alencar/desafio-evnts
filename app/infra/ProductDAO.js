@@ -9,7 +9,7 @@ ProductDAO.prototype.list = function(callback){
 		if(err){
 			console.log('Erro: ', err);
 		}
-		console.log('Listou:', data);
+		// console.log('Listou:', data);
 	});
 }
 
@@ -18,7 +18,7 @@ ProductDAO.prototype.listByCategory = function(category, callback){
 		if(err){
 			console.log('Erro: ', err);
 		}
-		console.log('Listou:', data);
+		// console.log('Listou:', data);
 	});
 }
 
@@ -29,7 +29,7 @@ ProductDAO.prototype.save = function(product, callback){
 			if(err) {
 				console.log('ERRO: ', err);
 			}
-			console.log('Dados: ', data);
+			// console.log('Dados: ', data);
 	});
 }
 
@@ -38,7 +38,7 @@ ProductDAO.prototype.delete = function(id, callback){
 		if(err) {
 				console.log('ERRO: ', err);
 			}
-			console.log('Dados: ', data);
+			// console.log('Dados: ', data);
 	});
 }
 
@@ -47,7 +47,7 @@ ProductDAO.prototype.update = function(id, product, callback){
 		if(err){
 			console.log('Erro: ', err);
 		}
-		console.log('Listou:', data);
+		// console.log('Listou:', data);
 	});
 }
 
