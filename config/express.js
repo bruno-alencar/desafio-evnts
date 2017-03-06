@@ -14,6 +14,8 @@ module.exports = function(){
 	app.use(bodyParser.json());
 	app.use(expressValidator());
 
+	require('events').EventEmitter.prototype._maxListeners = 0;
+
 	load('routes', {cwd: 'app'})
 		.then('infra')
 		.into(app);

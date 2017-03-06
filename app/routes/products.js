@@ -7,11 +7,11 @@ module.exports = function(app){
 		productDAO.list(function(err, results){
 			res.format({
 				html: function(){
+					console.log(results);
 					res.render('products/list', {list: results});
 				},
 				json: function(){
 					res.json(results);
-					console.log(results);
 				}
 			})
 		});
@@ -22,7 +22,6 @@ module.exports = function(app){
 	app.get('/produtos/:category', function(req,res){
 
 		var category = req.params.category;
-		console.log("categoria: "+category);
 
 		var mongoose = app.infra.connectionFactory();
 		var productDAO = new app.infra.ProductDAO(mongoose);
@@ -50,13 +49,11 @@ module.exports = function(app){
 		var product = req.body;
 
 		req.assert('name', 'O nome é obrigatório').notEmpty();
-		req.assert('price', 'Preço é obrigatório ou Formato inválido (ex: 22.22)').isFloat();
+		req.assert('price', 'Preço é obrigatório, formato inválido (ex: 22.22) e maior que 0').isFloat();
 		req.assert('category', 'A categoria é obrigatória').notEmpty();
 		req.assert('description', 'A descrição é obrigatória').notEmpty();
 
 		var errors = req.validationErrors();
-
-		console.log("produto "+product);
 
 		if(errors){
 			res.format({
@@ -70,6 +67,23 @@ module.exports = function(app){
 			return;
 		}
 
+		if(product.price < 0){
+			res.format({
+				html: function(){
+					res.status(400).render('products/form',{validationErrors: {}, product:product});		
+				},
+				json: function(){
+					res.status(400).json(errors);
+				}
+			});
+		}
+
+		// var image = new Buffer(req.body.picture, "base64");
+		
+		// var fs = require('fs');
+		// product.picture.data = fs.readFileSync('./'+req.body.picture);
+		// product.picture.contentType = 'image/png';
+
 		var mongoose = app.infra.connectionFactory();
 		var productDAO = new app.infra.ProductDAO(mongoose);
 
@@ -78,6 +92,59 @@ module.exports = function(app){
 		});
 		mongoose.connection.close();
 	});
+
+	app.post('/produtos/all', function(req, res){
+		
+		var products = req.body;
+
+		for(var i = 21; i < products.length ;i++){
+		// req.assert('name', 'O nome é obrigatório').notEmpty();
+		// req.assert('price', 'Preço é obrigatório, formato inválido (ex: 22.22) e maior que 0').isFloat();
+		// req.assert('category', 'A categoria é obrigatória').notEmpty();
+		// req.assert('description', 'A descrição é obrigatória').notEmpty();
+
+		// var errors = req.validationErrors();
+
+		// if(errors){
+		// 	res.format({
+		// 		html: function(){
+		// 			res.status(400).render('products/form',{validationErrors: errors, product:product});		
+		// 		},
+		// 		json: function(){
+		// 			res.status(400).json(errors);
+		// 		}
+		// 	});
+		// 	return;
+		// }
+
+		// if(product.price < 0){
+		// 	res.format({
+		// 		html: function(){
+		// 			res.status(400).render('products/form',{validationErrors: {}, product:product});		
+		// 		},
+		// 		json: function(){
+		// 			res.status(400).json(errors);
+		// 		}
+		// 	});
+		// }
+
+		// var image = new Buffer(req.body.picture, "base64");
+		
+		// var fs = require('fs');
+		// product.picture.data = fs.readFileSync('./'+req.body.picture);
+		// product.picture.contentType = 'image/png';
+
+
+		var mongoose = app.infra.connectionFactory();
+		var productDAO = new app.infra.ProductDAO(mongoose);
+
+		productDAO.save(products[i], function(err, results){
+			res.redirect('/produtos');
+		});
+		mongoose.connection.close();
+		}
+	});
+
 
 	app.delete('/produtos', function(req, res){
 
@@ -94,13 +161,15 @@ module.exports = function(app){
 		mongoose.connection.close();
 	});
 
-	app.put('/produtos', function(req, res){
+	app.put('/produtos/:id', function(req, res){
+
 		var mongoose = app.infra.connectionFactory();
 		var productDAO = new app.infra.ProductDAO(mongoose);
 
 		var product = req.body;
+		var id = req.params.id;
 
-		productDAO.update(product._id, product, function(err, results){
+		productDAO.update(id, product, function(err, results){
 			res.redirect('/produtos');
 		});
 		mongoose.connection.close();
